@@ -37,18 +37,18 @@
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>EndOfCheckPhase</string>
-		</dict>
-		<dict>
+			<string>CodeSignatureVerifier</string>
 			<key>Arguments</key>
 			<dict>
 				<key>input_path</key>
-				<string>%pathname%/Duo Device Health.app</string>
-				<key>requirement</key>
-				<string>anchor apple generic and identifier "com.duosecurity.duo-device-health" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = FNN8Z5JMFP)</string>
-			</dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
+				<string>%pathname%/Install_DuoDeviceHealth.pkg</string>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Duo Security, Inc. (FNN8Z5JMFP)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>			
+				</array>
+			</dict>			
 		</dict>
 	</array>
 </dict>
