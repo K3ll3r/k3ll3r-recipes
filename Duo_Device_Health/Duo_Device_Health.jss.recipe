@@ -7,21 +7,19 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Duo Device Health and imports it into your JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.DuoDeviceHealth</string>
+	<string>com.github.K3ll3r.jss.DuoDeviceHealth</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
-		<string>Productivity</string>
-		<key>GROUP_NAME</key>
-		<string>%NAME%-update-smart</string>
+		<string>Utility</string>
 		<key>GROUP_TEMPLATE</key>
-		<string>SmartGroupTemplate.xml</string>
+		<string>SmartGroupTemplate_OldInstalled.xml</string>
 		<key>NAME</key>
 		<string>Duo Device Health</string>
 		<key>POLICY_CATEGORY</key>
-		<string>Testing</string>
+		<string>Utility</string>
 		<key>POLICY_TEMPLATE</key>
-		<string>PolicyTemplate.xml</string>
+		<string>PolicyTemplate_ScopeToAll.xml</string>
 		<key>SELF_SERVICE_DESCRIPTION</key>
 		<string></string>
 		<key>SELF_SERVICE_ICON</key>
