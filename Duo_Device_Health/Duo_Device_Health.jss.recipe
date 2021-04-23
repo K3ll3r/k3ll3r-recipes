@@ -13,15 +13,15 @@
 		<key>CATEGORY</key>
 		<string>Utility</string>
 		<key>GROUP_TEMPLATE</key>
-		<string>SmartGroupTemplate_OldInstalled.xml</string>
+		<string>SmartGroupTemplate.xml</string>
 		<key>NAME</key>
 		<string>Duo Device Health</string>
 		<key>POLICY_CATEGORY</key>
-		<string>Utility</string>
+		<string>Testing</string>
 		<key>POLICY_TEMPLATE</key>
-		<string>PolicyTemplate_ScopeToAll.xml</string>
+		<string>PolicyTemplate.xml</string>
 		<key>SELF_SERVICE_DESCRIPTION</key>
-		<string></string>
+		<string>The Duo Device Health Application is an application installed on your desktop or laptop that performs health checks whenever you access Duo protected applications, ensuring that your computer meets the organization’s security requirements. This helps protect corporate data and make sure your computer is less vulnerable to compromise.</string>
 		<key>SELF_SERVICE_ICON</key>
 		<string>%NAME%.png</string>
 	</dict>
