@@ -1,0 +1,23 @@
+Comment: Created with Recipe Robot v2.2.0 (https://github.com/homebysix/recipe-robot)
+Description: Downloads the latest version of Duo Device Health and imports it into Munki.
+Identifier: com.github.K3ll3r.munki.DuoDeviceHealth
+ParentRecipe: com.github.K3ll3r.download.DuoDeviceHealth
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: Duo Device Health
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    catalogs:
+    - testing
+    description: ' '
+    developer: Duo Security, Inc.
+    display_name: Duo Device Health
+    name: '%NAME%'
+    unattended_install: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%pathname%'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'
