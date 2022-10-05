@@ -8,21 +8,33 @@ Input:
   NAME: Duo Device Health
   CATEGORY: Utility
   GROUP_TEMPLATE: SmartGroupTemplate.xml
+  GROUP_NAME: '%NAME%-old-version-installed'
   POLICY_CATEGORY: Testing
   POLICY_TEMPLATE: PolicyTemplate.xml
   SELF_SERVICE_DESCRIPTION: "The Duo Device Health Application is an application installed on your desktop or laptop that performs health checks whenever you access Duo protected applications, ensuring that your computer meets the organization\u2019s security requirements. This helps protect corporate data and make sure your computer is less vulnerable to compromise."
   SELF_SERVICE_ICON: '%NAME%.png'
+  version: '%version%'
 
 Process:
-- Processor: JSSImporter
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
   Arguments:
+    pkg_category: '%CATEGORY%'
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+  Arguments:
+    policy_name: 'Install Latest %NAME%'
+    icon: '%SELF_SERVICE_ICON%'
     category: '%CATEGORY%'
-    groups:
-    - name: '%GROUP_NAME%'
-      smart: true
-      template_path: '%GROUP_TEMPLATE%'
     policy_category: '%POLICY_CATEGORY%'
     policy_template: '%POLICY_TEMPLATE%'
-    prod_name: '%NAME%'
+    policy_name: 'Install Latest %NAME%'
     self_service_description: '%SELF_SERVICE_DESCRIPTION%'
-    self_service_icon: '%SELF_SERVICE_ICON%'
+    VERSION: '%version%'
+    replace_policy: true
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+  Arguments:
+    computergroup_name: '%GROUP_NAME%'
+    replace_group: true
+    computergroup_template: '%GROUP_TEMPLATE%'
+
