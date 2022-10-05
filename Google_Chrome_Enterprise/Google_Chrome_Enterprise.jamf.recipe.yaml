@@ -1,0 +1,40 @@
+Comment: Created with Recipe Robot v2.2.0 (https://github.com/homebysix/recipe-robot)
+Description: Downloads the latest version of Duo Device Health and imports it into your JSS.
+Identifier: com.github.K3ll3r.jss.GoogleChromeEnterprise
+ParentRecipe: com.github.autopkg.pkg.googlechromepkg
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: Google Chrome
+  CATEGORY: Web Browsers
+  GROUP_TEMPLATE: SmartGroupTemplate.xml
+  GROUP_NAME: '%NAME%-update-smart'
+  POLICY_CATEGORY: Testing
+  POLICY_TEMPLATE: PolicyTemplate.xml
+  SELF_SERVICE_DESCRIPTION: "Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier."
+  SELF_SERVICE_ICON: '%NAME%.png'
+  version: '%version%'
+
+Process:
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+  Arguments:
+    pkg_category: '%CATEGORY%'
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+  Arguments:
+    policy_name: 'Install Latest %NAME%'
+    icon: '%SELF_SERVICE_ICON%'
+    category: '%CATEGORY%'
+    policy_category: '%POLICY_CATEGORY%'
+    policy_template: '%POLICY_TEMPLATE%'
+    policy_name: 'Install Latest %NAME%'
+    self_service_description: '%SELF_SERVICE_DESCRIPTION%'
+    VERSION: '%version%'
+    replace_policy: true
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+  Arguments:
+    computergroup_name: '%GROUP_NAME%'
+    replace_group: true
+    computergroup_template: '%GROUP_TEMPLATE%'
+
