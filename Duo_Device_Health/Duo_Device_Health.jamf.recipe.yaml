@@ -8,6 +8,7 @@ Input:
   NAME: Duo Device Health
   CATEGORY: Utility
   GROUP_TEMPLATE: SmartGroupTemplate.xml
+  GROUP_NAME: '%NAME%-update-smart'
   POLICY_CATEGORY: Testing
   POLICY_TEMPLATE: PolicyTemplate.xml
   SELF_SERVICE_DESCRIPTION: "The Duo Device Health Application is an application installed on your desktop or laptop that performs health checks whenever you access Duo protected applications, ensuring that your computer meets the organization\u2019s security requirements. This helps protect corporate data and make sure your computer is less vulnerable to compromise."
