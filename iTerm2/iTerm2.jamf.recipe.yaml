@@ -1,0 +1,38 @@
+Description: Downloads the latest version of iTerm2 and imports it into your JSS.
+Identifier: com.github.K3ll3r.jamf.iterm2
+ParentRecipe: io.github.hjuutilainen.pkg.iTerm2
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: iTerm2
+  CATEGORY: Development
+  GROUP_TEMPLATE: SmartGroupTemplate.xml
+  GROUP_NAME: '%NAME%-update-smart'
+  POLICY_CATEGORY: Testing
+  POLICY_TEMPLATE: PolicyTemplate.xml
+  SELF_SERVICE_DESCRIPTION: "iTerm2 is a terminal emulator for macOS"
+  SELF_SERVICE_ICON: '%NAME%.png'
+  version: '%version%'
+
+Process:
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+  Arguments:
+    pkg_category: '%CATEGORY%'
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+  Arguments:
+    policy_name: 'Install Latest %NAME%'
+    icon: '%SELF_SERVICE_ICON%'
+    category: '%CATEGORY%'
+    policy_category: '%POLICY_CATEGORY%'
+    policy_template: '%POLICY_TEMPLATE%'
+    self_service_description: '%SELF_SERVICE_DESCRIPTION%'
+    VERSION: '%version%'
+    replace_policy: true
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+  Arguments:
+    computergroup_name: '%GROUP_NAME%'
+    replace_group: true
+    computergroup_template: '%GROUP_TEMPLATE%'
+
