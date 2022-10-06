@@ -1,4 +1,4 @@
-Description: Downloads the latest version of Slack and imports it into your JSS.
+Description: Downloads the latest version of Microsoft Excel and imports it into your JSS.
 Identifier: com.github.K3ll3r.jamf.msexcel365
 ParentRecipe: com.github.rtrouton.pkg.microsoftexcel365
 MinimumVersion: 1.0.0
