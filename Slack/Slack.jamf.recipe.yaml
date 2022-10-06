@@ -1,16 +1,16 @@
-Description: Downloads the latest version of Google Chrome Enterprise and imports it into your JSS.
-Identifier: com.github.K3ll3r.jamf.GoogleChromeEnterprise
-ParentRecipe: com.github.autopkg.pkg.googlechromepkg
+Description: Downloads the latest version of Slack and imports it into your JSS.
+Identifier: com.github.K3ll3r.jamf.Slack
+ParentRecipe: com.github.killahquam.pkg.slack
 MinimumVersion: 1.0.0
 
 Input:
-  NAME: Google Chrome
-  CATEGORY: Web Browsers
+  NAME: Slack
+  CATEGORY: Productivity
   GROUP_TEMPLATE: SmartGroupTemplate.xml
   GROUP_NAME: '%NAME%-update-smart'
   POLICY_CATEGORY: Testing
   POLICY_TEMPLATE: PolicyTemplate.xml
-  SELF_SERVICE_DESCRIPTION: "Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier."
+  SELF_SERVICE_DESCRIPTION: "Slack is a platform for team communication: everything in one place, instantly searchable, available wherever you go"
   SELF_SERVICE_ICON: '%NAME%.png'
   version: '%version%'
 
