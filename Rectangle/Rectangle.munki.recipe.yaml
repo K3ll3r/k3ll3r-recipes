@@ -1,0 +1,27 @@
+Description: Downloads the latest version of Rectangle and imports it into Munki.
+Identifier: com.github.K3ll3r.munki.Rectangle
+ParentRecipe: com.github.K3ll3r.pkg.Rectangle
+MinimumVersion: 0.6.1
+
+Input:
+  NAME: Rectangle
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    blocking_applications: []
+    catalogs:
+    - testing
+    description: Rectangle is a window management app based on Spectacle, written in Swift.
+    developer: Knollsoft
+    display_name: Rectangle
+    name: '%NAME%'
+    postuninstall_script: |
+      #!/bin/bash
+      /usr/bin/pkill -9 Rectangle"
+    unattended_install: true
+    unattended_uninstall: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%pathname%'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'
