@@ -1,0 +1,22 @@
+Description: Downloads the latest version of Google Drive and imports it into Munki.
+Identifier: com.github.K3ll3r.munki.GoogleDrive
+ParentRecipe: com.github.eth-its-recipes.pkg.GoogleDrive
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: Google Drive
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    catalogs:
+    - testing
+    description: 'Google Drive is a file storage and synchronization service developed by Google.'
+    developer: Google
+    display_name: Google Drive
+    name: '%NAME%'
+    unattended_install: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%pathname%'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'
