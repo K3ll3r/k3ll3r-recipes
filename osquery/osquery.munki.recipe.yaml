@@ -13,6 +13,7 @@ Input:
       osquery exposes an operating system as a high-performance relational database.
     developer: osquery
     name: '%NAME%'
+    display_name: '%NAME%'
     unattended_install: true
 
 Process:
