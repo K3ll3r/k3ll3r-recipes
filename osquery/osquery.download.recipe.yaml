@@ -1,0 +1,25 @@
+Description: Downloads the latest osquery installer .pkg from GitHub.
+Identifier: com.github.k3ll3r.download.osquery
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: osquery
+  REPO: '%NAME%/%NAME%'
+
+Process:
+- Processor: GitHubReleasesInfoProvider
+  Arguments:
+    asset_regex: .*\.pkg
+    github_repo: '%REPO%'
+
+- Processor: URLDownloader
+
+- Processor: EndOfCheckPhase
+
+- Processor: CodeSignatureVerifier
+  Arguments:
+    expected_authority_names:
+    - 'Developer ID Installer: OSQUERY A Series of LF Projects, LLC (3522FA9PXF)'
+    - Developer ID Certification Authority
+    - Apple Root CA
+    input_path: '%pathname%'
