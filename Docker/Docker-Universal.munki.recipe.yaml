@@ -1,0 +1,22 @@
+Description: Downloads the latest version of Google Drive and imports it into Munki.
+Identifier: com.github.K3ll3r.munki.Docker-Universal
+ParentRecipe: com.github.smithjw.pkg.Docker-Universal
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: Docker
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    catalogs:
+    - testing
+    description: 'Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.'
+    developer: Docker, Inc.
+    display_name: Docker
+    name: '%NAME%'
+    unattended_install: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%pathname%'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'
