@@ -1,0 +1,13 @@
+Description: Downloads the latest version of Duo Desktop and creates a package.
+Identifier: com.github.K3ll3r.pkg.DuoDesktop
+ParentRecipe: com.github.K3ll3r.download.DuoDesktop
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: Duo Desktop
+
+Process:
+- Processor: PkgCopier
+  Arguments:
+    pkg_path: '%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg'
+    source_pkg: '%pathname%/Install-DuoDesktop.pkg'

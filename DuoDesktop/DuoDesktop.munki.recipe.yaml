@@ -1,0 +1,22 @@
+Description: Downloads the latest version of Duo Desktop and imports it into Munki.
+Identifier: com.github.K3ll3r.munki.DuoDesktop
+ParentRecipe: com.github.K3ll3r.download.DuoDesktop
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: Duo Desktop
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    catalogs:
+    - testing
+    description: ' '
+    developer: Duo Security, Inc.
+    display_name: Duo Desktop
+    name: '%NAME%'
+    unattended_install: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%pathname%'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'
