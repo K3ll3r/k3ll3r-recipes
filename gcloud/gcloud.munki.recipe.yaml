@@ -1,0 +1,23 @@
+Identifier: com.github.k3ll3r.munki.gcloud
+ParentRecipe: com.github.k3ll3r.pkg.gcloud
+
+Input:
+  NAME: gcloud
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    catalogs:
+    - testing
+    category: Utilities
+    description: |
+      The Google Cloud CLI includes the gcloud, gsutil and bq command-line tools.
+      After installation, run "./google-cloud-sdk/install.sh" to add the gcloud CLI tools to your path, enable command completion, and enable usage reporting.
+    developer: Google
+    name: '%NAME%'
+    display_name: '%NAME%'
+    unattended_install: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'

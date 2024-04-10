@@ -1,0 +1,30 @@
+Description: Downloads the latest gcloud cli tools
+Identifier: com.github.k3ll3r.download.gcloud
+MinimumVersion: 1.0.0
+
+Input:
+  # Example url: 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-470.0.0-darwin-x86_64.tar.gz'
+  NAME: gcloud
+  RELEASE_ARM_PREFIX: darwin-arm
+  RELEASE_X86_PREFIX: darwin-x86_64
+  WEBSITE_URL: 'https://cloud.google.com/sdk/docs/install'
+  DOWNLOAD_URL: 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads'
+  DOWNLOAD_PATTERN: '%DOWNLOAD_URL%/google-cloud-cli-[(d+\.)?(d+\.)?(\d+)]-%RELEASE_ARM_PREFIX%.tar.gz'
+  
+
+Process:
+- Processor: URLTextSearcher
+  Arguments:
+    re_pattern: 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-?([\d.]+)'
+    result_output_var_name: 'version'
+    url: '%WEBSITE_URL%'
+
+- Processor: URLDownloader
+  Arguments:
+    url: '%DOWNLOAD_URL%/google-cloud-cli-%version%-%RELEASE_ARM_PREFIX%.tar.gz'
+
+- Processor: URLDownloader
+  Arguments:
+    url: '%DOWNLOAD_URL%/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz'
+
+- Processor: EndOfCheckPhase
