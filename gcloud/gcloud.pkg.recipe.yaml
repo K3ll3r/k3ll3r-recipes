@@ -1,0 +1,72 @@
+Description: Packages the latest gcloud cli tools
+Identifier: com.github.k3ll3r.pkg.gcloud
+ParentRecipe: com.github.k3ll3r.download.gcloud
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: gcloud
+  PKG_ID: car.robot.gcloud
+
+
+Process:
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs:
+        payload: "0775"
+        scripts: "0775"
+        payload/var/tmp/darwin-arm: "0775"
+        payload/var/tmp/darwin-x86_64: "0775"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+
+  - Processor: Unarchiver
+    Arguments:
+      archive_path: '%RECIPE_CACHE_DIR%/downloads/google-cloud-cli-%version%-%RELEASE_ARM_PREFIX%.tar.gz'
+      destination_path: '%RECIPE_CACHE_DIR%/%NAME%/payload/var/tmp/%RELEASE_ARM_PREFIX%/'
+      purge_destination: true
+
+  - Processor: Unarchiver
+    Arguments:
+      archive_path: '%RECIPE_CACHE_DIR%/downloads/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz'
+      destination_path: '%RECIPE_CACHE_DIR%/%NAME%/payload/var/tmp/%RELEASE_X86_PREFIX%/'
+      purge_destination: true
+
+  - Processor: FileCreator
+    Arguments:
+      file_content: |
+        #!/bin/sh
+
+        arch=$(uname -m)
+        loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
+
+        if [[ $arch = "arm64" ]]; then
+        echo "arm64 architecture. Copying to home directory"
+        cp -R '/var/tmp/darwin-arm/google-cloud-sdk' /Users/"$loggedInUser"/
+        chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
+        elif [[ $arch = "x86_64" ]]; then
+        echo "x86_64 architecture. Copying to home directory"
+        cp -R '/var/tmp/darwin-x86_64/google-cloud-sdk' /Users/"$loggedInUser"/
+        chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
+        else
+        echo "architecture not recognized"
+        exit 1
+        fi
+      file_mode: "0755"
+      file_path: "%RECIPE_CACHE_DIR%/%NAME%/scripts/postinstall"
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        chown: []
+        id: "%PKG_ID%"
+        options: purge_ds_store
+        pkgname: "%NAME%-%version%"
+        pkgroot: "%RECIPE_CACHE_DIR%/%NAME%/payload"
+        scripts: "%RECIPE_CACHE_DIR%/%NAME%/scripts"
+        version: "%version%"
+
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/%NAME%"
+        - "%RECIPE_CACHE_DIR%/downloads"
