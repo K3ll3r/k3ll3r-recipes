@@ -29,18 +29,6 @@ Process:
       destination_path: "%RECIPE_CACHE_DIR%/%NAME%/payload/var/tmp/darwin-x86_64/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz"
       overwrite: True
 
-  # - Processor: Unarchiver
-  #   Arguments:
-  #     archive_path: '%RECIPE_CACHE_DIR%/downloads/google-cloud-cli-%version%-%RELEASE_ARM_PREFIX%.tar.gz'
-  #     destination_path: '%RECIPE_CACHE_DIR%/%NAME%/payload/var/tmp/%RELEASE_ARM_PREFIX%/'
-  #     purge_destination: true
-
-  # - Processor: Unarchiver
-  #   Arguments:
-  #     archive_path: '%RECIPE_CACHE_DIR%/downloads/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz'
-  #     destination_path: '%RECIPE_CACHE_DIR%/%NAME%/payload/var/tmp/%RELEASE_X86_PREFIX%/'
-  #     purge_destination: true
-
   - Processor: FileCreator
     Arguments:
       file_content: |
@@ -51,12 +39,10 @@ Process:
 
         if [[ $arch = "arm64" ]]; then
         echo "arm64 architecture. Extracting to home directory"
-        # cp -R '/var/tmp/darwin-arm/google-cloud-sdk' /Users/"$loggedInUser"/
         tar -xvzf '/var/tmp/darwin-arm/google-cloud-cli-%version%-%RELEASE_ARM_PREFIX%.tar.gz' -C /Users/$loggedInUser/
         chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
         elif [[ $arch = "x86_64" ]]; then
         echo "x86_64 architecture. Extracting to home directory"
-        # cp -R '/var/tmp/darwin-x86_64/google-cloud-sdk' /Users/"$loggedInUser"/
         tar -xvzf '/var/tmp/darwin-arm/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz' -C /Users/$loggedInUser/
         chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
         else
