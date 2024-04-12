@@ -9,12 +9,17 @@ Input:
     - testing
     category: Utilities
     description: |
-      The Google Cloud CLI includes the gcloud, gsutil and bq command-line tools.
-      After installation, run "./google-cloud-sdk/install.sh" to add the gcloud CLI tools to your path, enable command completion, and enable usage reporting.
+      The GCloud installer includes the gcloud, gsutil and bq command-line tools.
     developer: Google
     name: '%NAME%'
     display_name: '%NAME%'
     unattended_install: true
+    postinstall_script: |
+        #!/bin/bash
+        loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
+
+        echo "installing google cloud sdk and adding cli tools to path"
+        /Users/$loggedInUser/google-cloud-sdk/install.sh --quiet --install-python false --path-update true
 
 Process:
 - Processor: MunkiImporter
