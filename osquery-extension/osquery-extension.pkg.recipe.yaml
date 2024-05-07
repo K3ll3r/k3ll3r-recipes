@@ -5,7 +5,6 @@ MinimumVersion: 1.0.0
 
 Input:
   NAME: osquery-extension
-  PKG_ID: car.robot.osquery-extension
 
 Process:
   - Processor: PkgRootCreator
