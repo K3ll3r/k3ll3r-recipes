@@ -29,29 +29,6 @@ Process:
       path_list:
         - "%RECIPE_CACHE_DIR%/%NAME%/unzipped"
 
-  # - Processor: FileCreator
-  #   Arguments:
-  #     file_content: |
-  #       #!/bin/sh
-
-  #       arch=$(uname -m)
-  #       loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
-
-  #       if [[ $arch = "arm64" ]]; then
-  #       echo "arm64 architecture. Extracting to home directory"
-  #       tar -xvzf '/var/tmp/darwin-arm/google-cloud-cli-%version%-%RELEASE_ARM_PREFIX%.tar.gz' -C /Users/$loggedInUser/
-  #       chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
-  #       elif [[ $arch = "x86_64" ]]; then
-  #       echo "x86_64 architecture. Extracting to home directory"
-  #       tar -xvzf '/var/tmp/darwin-arm/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz' -C /Users/$loggedInUser/
-  #       chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
-  #       else
-  #       echo "architecture not recognized"
-  #       exit 1
-  #       fi
-  #     file_mode: "0755"
-  #     file_path: "%RECIPE_CACHE_DIR%/%NAME%/scripts/postinstall"
-
   - Processor: PkgCreator
     Arguments:
       pkg_request:
@@ -64,8 +41,8 @@ Process:
         pkgdir: '%RECIPE_CACHE_DIR%'
         pkgname: '%NAME%-%version%'
 
-  # - Processor: PathDeleter
-  #   Arguments:
-  #     path_list:
-  #       - "%RECIPE_CACHE_DIR%/%NAME%"
-  #       - "%RECIPE_CACHE_DIR%/downloads"
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/%NAME%"
+        - "%RECIPE_CACHE_DIR%/downloads"
