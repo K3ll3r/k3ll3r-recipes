@@ -1,0 +1,23 @@
+Identifier: com.github.k3ll3r.munki.osquery-extension
+ParentRecipe: com.github.k3ll3r.pkg.osquery-extension
+
+Input:
+  NAME: osquery-extension
+  PKG_ID: 'com.company.osquery-extension'
+  MUNKI_REPO_SUBDIR: apps/%NAME%
+  pkginfo:
+    catalogs:
+    - testing
+    category: Utilities
+    description: |
+      An osquery extension for macOS endpoint engineers
+    developer: macadmins
+    name: '%NAME%'
+    display_name: '%NAME%'
+    unattended_install: true
+
+Process:
+- Processor: MunkiImporter
+  Arguments:
+    pkg_path: '%pkg_path%'
+    repo_subdirectory: '%MUNKI_REPO_SUBDIR%'

@@ -1,0 +1,17 @@
+Description: Downloads the latest macadmins osquery extension for endpoint engineers
+Identifier: com.github.k3ll3r.download.osquery-extension
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: osquery-extension
+  REPO: 'macadmins/%NAME%'
+
+Process:
+- Processor: GitHubReleasesInfoProvider
+  Arguments:
+    asset_regex: .*\.zip
+    github_repo: '%REPO%'
+
+- Processor: URLDownloader
+
+- Processor: EndOfCheckPhase
