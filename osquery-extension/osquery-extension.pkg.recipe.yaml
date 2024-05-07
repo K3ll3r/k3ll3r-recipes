@@ -1,0 +1,71 @@
+Description: Packages the latest macadmins osquery extension (installs to /usr/local/lib/osquery/extensions)
+Identifier: com.github.k3ll3r.pkg.osquery-extension
+ParentRecipe: com.github.k3ll3r.download.osquery-extension
+MinimumVersion: 1.0.0
+
+Input:
+  NAME: osquery-extension
+  PKG_ID: car.robot.osquery-extension
+
+Process:
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs:
+        usr/local/lib/osquery/extensions: "0775"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+
+  - Processor: Unarchiver
+    Arguments:
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%/unzipped"
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%RECIPE_CACHE_DIR%/%NAME%/unzipped/macadmins_extension/darwin/macadmins_extension.ext"
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%/usr/local/lib/osquery/extensions/macadmins_extension.ext"
+      overwrite: True
+
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/%NAME%/unzipped"
+
+  # - Processor: FileCreator
+  #   Arguments:
+  #     file_content: |
+  #       #!/bin/sh
+
+  #       arch=$(uname -m)
+  #       loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
+
+  #       if [[ $arch = "arm64" ]]; then
+  #       echo "arm64 architecture. Extracting to home directory"
+  #       tar -xvzf '/var/tmp/darwin-arm/google-cloud-cli-%version%-%RELEASE_ARM_PREFIX%.tar.gz' -C /Users/$loggedInUser/
+  #       chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
+  #       elif [[ $arch = "x86_64" ]]; then
+  #       echo "x86_64 architecture. Extracting to home directory"
+  #       tar -xvzf '/var/tmp/darwin-arm/google-cloud-cli-%version%-%RELEASE_X86_PREFIX%.tar.gz' -C /Users/$loggedInUser/
+  #       chown -R $loggedInUser /Users/"$loggedInUser"/google-cloud-sdk
+  #       else
+  #       echo "architecture not recognized"
+  #       exit 1
+  #       fi
+  #     file_mode: "0755"
+  #     file_path: "%RECIPE_CACHE_DIR%/%NAME%/scripts/postinstall"
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        chown:
+        - user: root 
+          group: admin
+          path: 'usr'
+        id: '%PKG_ID%'
+        options: purge_ds_store
+        pkgdir: '%RECIPE_CACHE_DIR%'
+        pkgname: '%NAME%-%version%'
+
+  # - Processor: PathDeleter
+  #   Arguments:
+  #     path_list:
+  #       - "%RECIPE_CACHE_DIR%/%NAME%"
+  #       - "%RECIPE_CACHE_DIR%/downloads"
