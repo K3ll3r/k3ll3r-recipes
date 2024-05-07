@@ -16,16 +16,16 @@ Input:
     display_name: '%NAME%'
     unattended_install: true
     postinstall_script: |
-    #!/bin/bash
-    
-    echo "create /etc/osquery directory if needed"
-    mkdir -p /etc/osquery
-    
-    echo "create extension load file"
-    touch /etc/osquery/extensions.load
-    
-    echo "add osquery-extension path to load file"
-    echo "/usr/local/lib/osquery/extensions/macadmins_extension.ext" > /etc/osquery/extensions.load
+      #!/bin/bash
+      
+      echo "create /etc/osquery directory if needed"
+      mkdir -p /etc/osquery
+      
+      echo "create extension load file"
+      touch /etc/osquery/extensions.load
+      
+      echo "add osquery-extension path to load file"
+      echo "/usr/local/lib/osquery/extensions/macadmins_extension.ext" > /etc/osquery/extensions.load
 
 Process:
 - Processor: MunkiImporter
