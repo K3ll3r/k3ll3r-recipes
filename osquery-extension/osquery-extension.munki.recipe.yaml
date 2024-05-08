@@ -3,7 +3,6 @@ ParentRecipe: com.github.k3ll3r.pkg.osquery-extension
 
 Input:
   NAME: osquery-extension
-  PKG_ID: 'com.company.osquery-extension'
   MUNKI_REPO_SUBDIR: apps/%NAME%
   pkginfo:
     catalogs:
