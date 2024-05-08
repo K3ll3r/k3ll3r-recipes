@@ -5,12 +5,13 @@ MinimumVersion: 1.0.0
 
 Input:
   NAME: osquery-extension
+  PKG_ID: com.company.osquery-extension
 
 Process:
   - Processor: PkgRootCreator
     Arguments:
       pkgdirs:
-        usr/local/lib/osquery/extensions: "0775"
+        usr/local/lib/osquery/extensions: "0755"
       pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
 
   - Processor: Unarchiver
@@ -35,6 +36,7 @@ Process:
         - user: root 
           group: admin
           path: 'usr'
+          mode: '0755'
         id: '%PKG_ID%'
         options: purge_ds_store
         pkgdir: '%RECIPE_CACHE_DIR%'
