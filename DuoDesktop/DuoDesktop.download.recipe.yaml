@@ -9,7 +9,7 @@ Process:
 - Processor: URLTextSearcher
   Arguments:
     url: https://duo.com/docs/checksums#macos
-    re_pattern: href="https://dl.duosecurity.com/DuoDesktop-(\d\.\d\.\d\.\d)\.pkg"
+    re_pattern: href="https://dl.duosecurity.com/DuoDesktop-(\d+\.\d+\.\d+\.\d+)\.pkg"
     result_output_var_name: version
 
 - Processor: URLDownloader
